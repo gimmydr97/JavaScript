@@ -1,0 +1,102 @@
+@charset "utf-8";
+/* CSS Document */
+
+aside  {
+  float:right;
+	  width:50%;
+  	border: 1px solid;
+	  border-color: #A8A8A8;
+	  padding-left: 5px;
+  	animation-name: colorchange;
+    animation-duration: 4s;
+}
+/*changing color*/
+@keyframes colorchange {
+  0% {color: red;}
+  50% {color: blue;}
+  100% {color: red;}
+}
+
+footer {
+  text-align: center;
+	font-weight: bold;
+	border: 4px solid;
+ 	border-color: #000;
+	
+}
+header {
+  border: 4px solid;
+ 	border-color: #A8A8A8;
+	text-align: center;
+	width:100%
+}
+main {
+  width:30%;
+	height: 100%;
+	border: 1px solid;
+	border-color: #A8A8A8;
+	padding: 5px 10px 5px 10px
+}
+nav {
+  margin-left:25px;
+	margin-right: 25px;
+	border: 5px solid;
+ 	border-color: #000;
+	text-align: center;
+}
+nav ul {
+  list-style: none;
+	margin-left: auto;
+	margin-right: auto;
+	
+}
+nav li {
+  display: inline;
+	text-decoration: none;
+}
+
+.azure{
+	background-color: #EFF
+}
+
+pre {
+  white-space:pre-line;
+  word-wrap: break-word;
+	font-size: 1em;
+	font-family: Cambria, Hoefler Text, Liberation Serif, Times, Times New Roman, serif;
+	margin-left: 20%
+}
+/*responsive website*/
+@media screen and (max-width: 768px) {
+  main {
+      width: 40%;
+  }
+	pre{
+		margin-left: 0px;
+		font-size: 0.7em
+	}
+}
+
+@media screen and (max-width:480px){
+	aside{
+		float:inherit;
+		width:100%;
+		margin:0;
+		padding:0
+	}
+	main{
+		width:100%;
+		margin:0;
+		padding:0px 
+	}
+	nav{
+		margin:0;
+		width:100%;
+		padding:0
+	}
+	
+	h1{
+		text-align: center
+	}
+	
+}

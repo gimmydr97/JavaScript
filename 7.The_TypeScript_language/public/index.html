@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>TypeScript Meeting Component</title>
+</head>
+<body>
+    <form>
+        <label for="actions">Actions:</label>
+        <input id="actions" name="actions" type="text"/>
+        <input id="submit" name="submit" type="button" value="Perform Actions"/>
+    </form>
+    <br/>
+    <meeting-component id="meetingcomponent"></meeting-component>
+    <script src="public/bundle.js"></script>
+    <script>
+        const factions = document.getElementById('actions');
+        const bsubmit = document.getElementById('submit');
+        const meetingcomponent = document.getElementById('meetingcomponent');
+        bsubmit.addEventListener('click', () => {
+            meetingcomponent.perform(factions.value);
+        });
+    </script>
+</body>
+</html>

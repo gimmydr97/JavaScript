@@ -1,0 +1,22 @@
+<html>
+    <body>
+        <form>
+            <input type="text" id="player" value="player_name">
+            <input type="number" name="nsquares" value="50">
+            <input type="number" id="speed" value="10"> 
+            <input type="button" id="ready" onclick="start()" value="play">
+        </form>
+        <table align="right">
+            <tr><td style="border: 1px solid">points</td><td style="border: 1px solid">time</td></tr>
+            <tr id="row1"><td >0</td><td id="time" >60</td></tr>
+        </table>
+        <table align="right">
+            <tr><td style="border: 1px solid">best gamers</td></tr>
+            <tr id="row1p"><td >-</td></tr>
+            <tr id="row2p"><td >-</td></tr>
+            <tr id="row3p"><td >-</td></tr>
+        </table>
+        <canvas id = "canvas"></canvas>
+        <script src=game.js></script>
+    </body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+  </head>
+  <body>
+    <main>
+      <form>
+        <input type="text" placeholder="Area" name="area" id="area">
+        <input type="text" placeholder="Location" name="location" id="location">
+        <input type="button" value="Download" onclick="download()">
+      </form>
+      <!-- ***************** -->
+      <h1>Remote</h1>
+      <div id='remote'>
+        Remote date and time
+      </div>
+      <!-- ***************** -->
+      <h1>Local</h1>
+      <div id='local'>
+        Local date and time
+      </div>
+    </main>
+    <script>
+        const farea = document.getElementById('area');
+        const flocation = document.getElementById('location');
+        const remote = document.getElementById('remote');
+        const local = document.getElementById('local');
+  
+        const download = async () => {
+          //local
+          local.textContent = 'Downloading data from local';
+          try {
+            const url = 'http://localhost:8081';
+            response = await fetch(url);
+            if (!response.ok || response.headers.get('Content-Type') !== 'application/xml')
+              throw Error();
+  
+            const text = await response.text();
+            const document = new DOMParser().parseFromString(text, "text/xml");
+            
+            local.textContent = `${document.getElementById('date').childNodes[0].nodeValue} ${document.getElementById('time').childNodes[0].nodeValue}`;
+          } catch {
+            local.textContent = 'An error occured, please try again later'
+          }
+          //remote
+          remote.textContent = 'Downloading data from server';
+          try {
+            const url = `http://worldtimeapi.org/api/timezone/${farea.value}/${flocation.value}`;
+            response = await fetch(url);
+            if (!response.ok || response.headers.get('Content-Type') !== 'application/json; charset=utf-8')
+              throw Error();
+            
+            const json = await response.json();
+            const date = new Date(json.datetime);
+  
+            remote.textContent = `${date.getDate()}/${date.getMonth()+1}/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}:${date.getSeconds()}`;
+          } catch {
+            remote.textContent = 'This website is currently experiencing high load';
+          }
+          
+        }
+      </script>
+    </body>
+  </html>
+  

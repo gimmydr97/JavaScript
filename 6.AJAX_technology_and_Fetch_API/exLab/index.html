@@ -1,0 +1,88 @@
+<html>
+    <header>
+        
+    </header>
+    <body>
+        <canvas id="canvas" width="200" height="300" style="border:1px solid #000000;">
+    </canvas>
+    <form>
+        <input type="button" id="delete" value="Delete">
+    </form>
+    <script>
+            let canvas = document.getElementById("canvas");
+            let del = document.getElementById("delete");
+            let ctx = canvas.getContext('2d');
+
+            canvas.addEventListener('click', function(evt) {
+                let x = evt.pageX;
+                    y = evt.pageY;
+                requestFetchGET(x,y);
+            });
+           del.addEventListener("click",function(evt){
+                let rand = Math.round(Math.random()*10);
+                requestFetchDELETE(rand);
+            });
+
+            function requestFetchGET(x,y) {
+                fetch(`http://localhost:8080/submit?x=${x}&y=${y}`)
+                    .then(function (response) {
+                        if (!response.ok){
+                            throw Error(response.statusText);
+                        }
+                        if (response.headers.get("Content-Type") == 'application/json') {
+                            response.json().then(json => {
+                                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                                    for(let i=0; i < json.length; i++){
+                                        ctx.beginPath();
+                                        ctx.fillStyle = json[i].color ;
+                                        ctx.arc(json[i].x,json[i].y, json[i].radius, 0, 2 * Math.PI);
+                                        ctx.fill();
+                                        ctx.closePath();
+                                    }
+                            });
+                        } 
+                        
+                    })
+                    .catch(function (error) {
+                    window.alert(error);
+                    });
+            }
+
+            function requestFetchDELETE(rand) {
+            
+                const options = {
+                    method: 'POST',
+                    headers: {
+                    /*'Access-Control-Allow-Origin': '*',*/
+                    'Content-type': 'application/x-www-form-urlencoded'
+                    
+                    },
+                    body: `rand=${encodeURIComponent(rand.toString())}`
+                }
+              
+                fetch(`http://localhost:8080/submit/delete`, options)
+                    .then(function (response) {
+                    if (!response.ok)
+                        throw Error(response.statusText);
+                    if (response.headers.get("Content-Type") == 'application/json') {
+                        response.json().then(json => {
+                                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                                for(let i=0; i < json.length; i++){
+                                    ctx.beginPath();
+                                    ctx.fillStyle = json[i].color ;
+                                    ctx.arc(json[i].x,json[i].y, json[i].radius, 0, 2 * Math.PI);
+                                    ctx.fill();
+                                    ctx.closePath();
+                                }
+                            });
+                        } 
+                        
+                    })
+                    .catch(function (error) {
+                    window.alert(error);
+                    });
+            }
+      
+    </script>
+    </body>
+</html>
